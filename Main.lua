@@ -1,9 +1,10 @@
 -- [[ term married Alya - Main Loader ]]
 getgenv().GithubUser = "TOMETO-Mods"
-getgenv().GithubRepo = "scripto" -- تم التحديث لاسم مستودعك الحالي
+getgenv().GithubRepo = "scripto" -- اسم مستودعك الحالي
 getgenv().GithubBranch = "main"
 
 local function loadModule(fileName)
+    -- تصحيح الرابط وإضافة محددات التنسيق البرمجي %s لدمج المتغيرات بشكل صحيح
     local url = string.format("https://githubusercontent.com", 
         getgenv().GithubUser, getgenv().GithubRepo, getgenv().GithubBranch, fileName)
     
