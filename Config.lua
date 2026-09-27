@@ -1,4 +1,4 @@
-here-- [[ term married Alya - Configuration Module ]]
+-- [[ term married Alya - Configuration Module ]]
 local Config = {
     AutoFarm = false,
     AutoAttack = true,
@@ -11,6 +11,14 @@ local Config = {
     HealthMob = 50,
     SelectWeapon = "Melee",
     FarmMode = "Quest",
+    ESPPlayer = false,
+    ESPIsland = false,
+    DevilFruitESP = false,
+    ESPChest = false,
+    AutoChest = false,
+    AutoSail = false,
+    AutoFarmSeaEvents = false,
+    ProtectBoat = true
 }
 
 return Config
