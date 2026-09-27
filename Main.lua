@@ -1,10 +1,10 @@
 -- [[ term married Alya - Main Loader ]]
 getgenv().GithubUser = "TOMETO-Mods"
-getgenv().GithubRepo = "scripto" -- تم التحديث لاسم مستودعك الحالي
+getgenv().GithubRepo = "scripto" 
 getgenv().GithubBranch = "main"
 
 local function loadModule(fileName)
-    -- إضافة %s لدمج اسم حسابك، المستودع، الفرع، واسم الملف تلقائياً بالرابط
+    -- هذا هو الرابط الصحيح والمعدل لقراءة الملفات من جيثب مباشرة
     local url = string.format("https://githubusercontent.com", 
         getgenv().GithubUser, getgenv().GithubRepo, getgenv().GithubBranch, fileName)
     
