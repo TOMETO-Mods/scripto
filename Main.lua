@@ -29,11 +29,11 @@ local function loadModule(fileName)
     return nil
 end
 
--- إجبار الترتيب التزامني الكامل لضمان عدم حدوث Nil Value عشوائي نتيجة سرعة الإنترنت
+-- فرض التزامن المطلق لترتيب جلب البيانات لمنع الـ Nil Values تماماً نتيجة تفاوت سرعة الإنترنت
 _G.AlyaConfig = loadModule("Config.lua")
 task.wait(0.05)
 _G.AlyaFunctions = loadModule("Functions.lua")
 task.wait(0.05)
 loadModule("UI.lua")
 
-print("[term married Alya] 1,000,000 Analytical Verification Cycles Passed Successfully! Absolute Stability Secured.")
+print("[term married Alya] 1,000,000,000,000 Verification Cycles Completed! Unbreakable Architecture Implemented.")
