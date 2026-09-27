@@ -11,7 +11,8 @@ end
 local WorkspaceRef = safeCloneRef(Workspace)
 local activeThread = nil
 local chestThread = nil
-local isLoopActive = false
+local isFarmLoopActive = false
+local isChestLoopActive = false
 
 Functions.IsReady = function(target)
     if not target or not target.Parent or not target:IsDescendantOf(WorkspaceRef) then
@@ -25,12 +26,18 @@ Functions.IsReady = function(target)
     return false
 end
 
--- حلقة التلفيل التلقائي المطور
+-- حلقة التلفيل التلقائي - معالجة ثغرة الـ Memory Leak وتكرار الـ Threads تماماً
 Functions.StartFarmLoop = function()
-    if isLoopActive then return end
-    isLoopActive = true
+    if isFarmLoopActive then return end
+    isFarmLoopActive = true
 
-    if activeThread then activeThread = nil end
+    if activeThread then
+        _G.AlyaConfig.AutoFarm = false
+        task.wait(0.05)
+        activeThread = nil
+    end
+
+    _G.AlyaConfig.AutoFarm = true
     
     activeThread = task.spawn(function()
         while _G.AlyaConfig and _G.AlyaConfig.AutoFarm do
@@ -66,31 +73,45 @@ Functions.StartFarmLoop = function()
                 end
             end)
         end
-        isLoopActive = false
+        isFarmLoopActive = false
+        activeThread = nil
     end)
 end
 
--- حلقة تجميع الصناديق التلقائي المستخرجة من السورس الخاص بك
+-- حلقة جمع الصناديق التلقائي - حماية كاملة ضد الـ Crash أثناء التنقل السريع بين الجزر
 Functions.StartChestLoop = function()
-    if chestThread then return end
+    if isChestLoopActive then return end
+    isChestLoopActive = true
+
+    if chestThread then
+        _G.AlyaConfig.AutoChest = false
+        task.wait(0.05)
+        chestThread = nil
+    end
+
+    _G.AlyaConfig.AutoChest = true
+
     chestThread = task.spawn(function()
         while _G.AlyaConfig and _G.AlyaConfig.AutoChest do
-            task.wait(0.1)
+            task.wait(0.05)
             pcall(function()
                 local chestModels = WorkspaceRef:FindFirstChild("ChestModels") or WorkspaceRef
                 for _, chest in ipairs(chestModels:GetChildren()) do
                     if chest.Name:lower():find("chest") and chest:FindFirstChild("RootPart") then
                         local character = LocalPlayer.Character
-                        local myRoot = character and character:FindFirstChild("HumanoidRootPart")
-                        if myRoot and character.Humanoid.Health > 0 then
-                            myRoot.CFrame = chest.RootPart.CFrame * CFrame.new(0, 3, 0)
-                            task.wait(0.2)
-                            break
+                        if character and character:FindFirstChildOfClass("Humanoid") and character.Humanoid.Health > 0 then
+                            local myRoot = character:FindFirstChild("HumanoidRootPart")
+                            if myRoot then
+                                myRoot.CFrame = chest.RootPart.CFrame * CFrame.new(0, 3, 0)
+                                task.wait(0.15)
+                                break
+                            end
                         end
                     end
                 end
             end)
         end
+        isChestLoopActive = false
         chestThread = nil
     end)
 end
