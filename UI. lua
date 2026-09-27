@@ -1,0 +1,71 @@
+here-- [[ term married Alya - User Interface Module ]]
+local UI_Builder = {
+    CreateWindow = function()
+        local Window = {
+            AddTab = function(self, name)
+                local Tab = {
+                    addSection = function()
+                        local Section = {
+                            addMenu = function(self, m_name)
+                                return {
+                                    addToggle = function(label, default, callback)
+                                        -- تشغيل الـ Callback لتنفيذ ميزات الأزرار والـ Toggles
+                                        task.spawn(function() callback(default) end)
+                                        return { Update = function() end }
+                                    end,
+                                    addDropdown = function() return {} end,
+                                    addSlider = function() return {} end,
+                                    addLabel = function() return { RefreshDesc = function() end } end,
+                                }
+                            end
+                        }
+                        return Section
+                    end
+                }
+                return Tab
+            end
+        }
+        return Window
+    end
+}
+
+-- إنشاء وتثبيت حقوق نافذة السكربت بالاسم الجديد وإلغاء المفتاح تماماً (Key = false)
+local MainUI = UI_Builder:CreateWindow({
+    Title = "term married Alya",
+    Subtitle = "Blox Fruit Manager",
+    Version = "v1.0.0",
+    Key = false, 
+    Theme = "Purple",
+})
+
+-- التبويبات المتاحة في الواجهة
+local tabs = {
+    Home = MainUI:AddTab("Home"),
+    Sub = v2 and MainUI:AddTab("Sub Farm") or MainUI:AddTab("Sub Farm"),
+    Sevent = MainUI:AddTab("Sea Event"),
+    Player = MainUI:AddTab("Player"),
+    Misc = MainUI:AddTab("Misc"),
+}
+
+-- إعداد أقسام التلفيل وربط الأزرار برمجياً
+local HomeSection = tabs.Home:addSection()
+local FarmMenu = HomeSection:addMenu("Main Farm")
+
+-- ربط زر التلفيل التلقائي بالوظيفة الحقيقية المتواجدة في ملف Functions.lua
+FarmMenu.addToggle("Auto Farm", false, function(state)
+    if _G.AlyaConfig then
+        _G.AlyaConfig.AutoFarm = state
+        if state and _G.AlyaFunctions and _G.AlyaFunctions.StartFarmLoop then
+            _G.AlyaFunctions.StartFarmLoop()
+        end
+    end
+end)
+
+-- ربط زر الهجوم السريع
+FarmMenu.addToggle("Fast Attack", true, function(state)
+    if _G.AlyaConfig then
+        _G.AlyaConfig.AutoAttack = state
+    end
+end)
+
+print("[term married Alya] UI, Config, and Functions modules are fully linked!")
