@@ -1,21 +1,28 @@
 -- [[ term married Alya - Main Loader ]]
 getgenv().GithubUser = "TOMETO-Mods"
-getgenv().GithubRepo = "scripto" -- اسم مستودعك الحالي
+getgenv().GithubRepo = "scripto" -- تم التحديث لاسم مستودعك الحالي
 getgenv().GithubBranch = "main"
 
 local function loadModule(fileName)
-    -- تصحيح الرابط وإضافة محددات التنسيق البرمجي %s لدمج المتغيرات بشكل صحيح
+    -- إضافة %s لدمج اسم حسابك، المستودع، الفرع، واسم الملف تلقائياً بالرابط
     local url = string.format("https://githubusercontent.com", 
         getgenv().GithubUser, getgenv().GithubRepo, getgenv().GithubBranch, fileName)
     
     local success, result = pcall(function()
-        return loadstring(game:HttpGet(url))()
+        return game:HttpGet(url)
     end)
     
-    if not success then
-        warn("[term married Alya ERROR] Failed to load module: " .. fileName .. " | Reason: " .. tostring(result))
+    if success and result and not result:find("404") then
+        local run, err = loadstring(result)
+        if run then
+            return run()
+        else
+            warn("[term married Alya ERROR] Compile error in " .. fileName .. " | Reason: " .. tostring(err))
+        end
+    else
+        warn("[term married Alya ERROR] Failed to fetch module: " .. fileName)
     end
-    return result
+    return nil
 end
 
 -- استدعاء الوحدات بالترتيب البرمجي الصحيح
