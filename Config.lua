@@ -1,5 +1,6 @@
 -- [[ term married Alya - Configuration Module ]]
 local Config = {
+    -- أزرار التلفيل والمهمات
     AutoFarm = false,
     AutoAttack = true,
     FastSettings = "Fast Attack",
@@ -11,14 +12,78 @@ local Config = {
     HealthMob = 50,
     SelectWeapon = "Melee",
     FarmMode = "Quest",
+    QuestFarmMode = "Double Quest",
+    BypassGetQuest = false,
+    AcceptQuests = false,
+    AutoSetSpawnPoint = false,
+    QuestDebounce = false,
+    
+    -- الفارم المتقدم والبوسات
+    SelectBoss = "",
+    AutoFarmBoss = false,
+    AutoKillAllBosses = false,
+    GetBossQuest = false,
+    AutoFarmBones = false,
+    Auto_Random_Surprise = false,
+    AutoPray = false,
+    AutoTryLuck = false,
+    AutoFarmPrince = false,
+    IgnoreCakePrince = false,
+    AutoDoughKing = false,
+    IgnoreDoughChaliceFarm = false,
+    AutoMaterial = false,
+    SelectMaterial = "Leather + Scrap Metal",
+    
+    -- أحداث البحر والصيد
+    AutoSail = false,
+    BoatSelected = "PirateBrigade",
+    SeaLevelSelected = "Level 6",
+    BoatPosY = 31,
+    SpeedBoat = 230,
+    ProtectBoat = true,
+    AutoBuyNewBoatWhendies = false,
+    ResetPlayerdestroyboat = false,
+    DodgeTerror = true,
+    DodgefSeabeast = true,
+    UseDragonSforSeabeasts = false,
+    ManualIncreaseBoatSpeed = false,
+    ManualBoatSpeed = 150,
+    Auto_Fishing = false,
+    AutoGetChest = false,
+    AutoCraftBait = false,
+    AutoGetAnglerQuest = false,
+    AutoSellFish = false,
+    SelectedRod = "Fishing Rod",
+    SelectedBait = "Basic Bait",
+    
+    -- كواشف الـ ESP
     ESPPlayer = false,
     ESPIsland = false,
     DevilFruitESP = false,
     ESPChest = false,
-    AutoChest = false,
-    AutoSail = false,
-    AutoFarmSeaEvents = false,
-    ProtectBoat = true
+    ESP_Berries = false,
+    ESP_RealFruits = false,
+    ESPMyBoat = false,
+    
+    -- الانتقالات والميزات المتنوعة
+    TeleportIslandSelect = "",
+    TeleportToIsland = false,
+    NpcTween = "",
+    TPtoNPC = false,
+    SelectPlayer = "Nearest",
+    CamLock = false,
+    SpectatePlayer = false,
+    TeleporttoPlayer = false,
+    EnableAimbot = false,
+    WalkSpeed = 50,
+    JumpPower = 50,
+    XrayVision = false,
+    InfiniteZoom = false,
+    White_Screen = false,
+    BlackScreen = false,
+    NoFog = false,
+    AutoCleanMemory = true,
+    AutoFastMode = false
 }
 
 return Config
