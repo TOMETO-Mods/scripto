@@ -26,7 +26,7 @@ Functions.IsReady = function(target)
     return false
 end
 
--- حلقة التلفيل التلقائي - معالجة ثغرة الـ Memory Leak وتكرار الـ Threads تماماً
+-- حلقة التلفيل التلقائي - حماية قصوى ضد تكرار الـ Threads وهبوط الـ FPS وتجميد اللعبة
 Functions.StartFarmLoop = function()
     if isFarmLoopActive then return end
     isFarmLoopActive = true
@@ -52,6 +52,7 @@ Functions.StartFarmLoop = function()
                                 local myRoot = character:FindFirstChild("HumanoidRootPart")
                                 local enemyRoot = enemy:FindFirstChild("HumanoidRootPart") or enemy.PrimaryPart
                                 
+                                -- فحص أمان معزز لحماية موقع اللاعب ومنع الكراش تماماً عند الموت أو إعادة الرسبنة
                                 if myRoot and enemyRoot and enemyRoot:IsA("BasePart") then
                                     myRoot.CFrame = enemyRoot.CFrame * CFrame.new(0, 12, 0)
                                     
@@ -78,7 +79,7 @@ Functions.StartFarmLoop = function()
     end)
 end
 
--- حلقة جمع الصناديق التلقائي - حماية كاملة ضد الـ Crash أثناء التنقل السريع بين الجزر
+-- حلقة تجميع الصناديق التلقائي - حماية كاملة ضد أخطاء المراجع المنعدمة أثناء التنقل السريع
 Functions.StartChestLoop = function()
     if isChestLoopActive then return end
     isChestLoopActive = true
